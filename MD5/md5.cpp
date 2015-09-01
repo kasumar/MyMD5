@@ -53,7 +53,7 @@ static void Decode PROTO_LIST ((UINT4 *, unsigned char *, unsigned int));
 static void MD5_memcpy PROTO_LIST ((POINTER, POINTER, unsigned int));
 static void MD5_memset PROTO_LIST ((POINTER, int, unsigned int));
 
-//Begin ÒÆ×Ô¹Ù·½°æ±¾µÄmd5.hÎÄ¼þ£¨MD5.H - header file for MD5C.C£©
+//Begin ç§»è‡ªå®˜æ–¹ç‰ˆæœ¬çš„md5.hæ–‡ä»¶ï¼ˆMD5.H - header file for MD5C.Cï¼‰
 /* MD5 context. */
 typedef struct {
 	UINT4 state[4];                                   /* state (ABCD) */
@@ -386,7 +386,7 @@ char* MDFile(char* filename)
 		//MDPrint (digest);
 	}
 
-	/*static*/ char szMD5[33] = {0};
+	static char szMD5[33] = {0};
 	char* pBuf = szMD5;
 	char szTemp[3] = {0};
 	for (int i=0; i<16; ++i)
