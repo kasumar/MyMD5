@@ -23,12 +23,12 @@ These notices must be retained in any copies of any part of this
 documentation and/or software.
 */
 
-//Begin ´Ë²¿·ÖÄÚÈİÒÑÒÆÖÁmd5.cpp
+//Begin æ­¤éƒ¨åˆ†å†…å®¹å·²ç§»è‡³md5.cpp
 ///* MD5 context. */
 //typedef struct {
-//	UINT4 state[4];                                   /* state (ABCD) */
-//	UINT4 count[2];        /* number of bits, modulo 2^64 (lsb first) */
-//	unsigned char buffer[64];                         /* input buffer */
+//    UINT4 state[4];                                   /* state (ABCD) */
+//    UINT4 count[2];        /* number of bits, modulo 2^64 (lsb first) */
+//    unsigned char buffer[64];                         /* input buffer */
 //} MD5_CTX;
 
 //void MD5Init PROTO_LIST ((MD5_CTX *));
@@ -42,7 +42,7 @@ documentation and/or software.
 #if !defined(_MD5_H_)
 #define _MD5_H_
 
-//»ñÈ¡Ö¸¶¨ÎÄ¼şµÄMD5Öµ
-char* MDFile(char* filename);
+//è·å–æŒ‡å®šæ–‡ä»¶çš„MD5å€¼
+char* MDFile(const char* filePath);
 
 #endif//!defined(_MD5_H_)

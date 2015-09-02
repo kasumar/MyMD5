@@ -56,9 +56,9 @@ static void MD5_memset PROTO_LIST ((POINTER, int, unsigned int));
 //Begin 移自官方版本的md5.h文件（MD5.H - header file for MD5C.C）
 /* MD5 context. */
 typedef struct {
-	UINT4 state[4];                                   /* state (ABCD) */
-	UINT4 count[2];        /* number of bits, modulo 2^64 (lsb first) */
-	unsigned char buffer[64];                         /* input buffer */
+    UINT4 state[4];                                   /* state (ABCD) */
+    UINT4 count[2];        /* number of bits, modulo 2^64 (lsb first) */
+    unsigned char buffer[64];                         /* input buffer */
 } MD5_CTX;
 
 void MD5Init PROTO_LIST ((MD5_CTX *));
@@ -124,9 +124,9 @@ void MD5Init (MD5_CTX *context)  /* context */
   context.
  */
 void MD5Update (MD5_CTX *context,      /* context */
-				unsigned char *input,  /* input block */
-				unsigned int inputLen  /* length of input block */
-				)                  
+                unsigned char *input,  /* input block */
+                unsigned int inputLen  /* length of input block */
+                )                  
 {
   unsigned int i, index, partLen;
 
@@ -136,7 +136,7 @@ void MD5Update (MD5_CTX *context,      /* context */
   /* Update number of bits */
   if ((context->count[0] += ((UINT4)inputLen << 3)) < ((UINT4)inputLen << 3))
   {
-	  context->count[1]++;
+      context->count[1]++;
   }
   context->count[1] += ((UINT4)inputLen >> 29);
 
@@ -145,19 +145,19 @@ void MD5Update (MD5_CTX *context,      /* context */
   /* Transform as many times as possible.*/
   if (inputLen >= partLen)
   {
-	  MD5_memcpy((POINTER)&context->buffer[index], (POINTER)input, partLen);
-	  MD5Transform (context->state, context->buffer);
+      MD5_memcpy((POINTER)&context->buffer[index], (POINTER)input, partLen);
+      MD5Transform (context->state, context->buffer);
 
-	  for (i = partLen; i + 63 < inputLen; i += 64)
-	  {
-		  MD5Transform (context->state, &input[i]);
-	  }
+      for (i = partLen; i + 63 < inputLen; i += 64)
+      {
+          MD5Transform (context->state, &input[i]);
+      }
 
-	  index = 0;
+      index = 0;
   }
   else
   {
-	  i = 0;
+      i = 0;
   }
 
   /* Buffer remaining input */
@@ -168,8 +168,8 @@ void MD5Update (MD5_CTX *context,      /* context */
   the message digest and zeroizing the context.
  */
 void MD5Final (unsigned char digest[16],  /* message digest */
-			   MD5_CTX *context           /* context */
-			   )                                    
+               MD5_CTX *context           /* context */
+               )                                    
 {
   unsigned char bits[8];
   unsigned int index, padLen;
@@ -289,10 +289,10 @@ static void Encode (unsigned char *output, UINT4 *input, unsigned int len)
 
   for (i = 0, j = 0; j < len; i++, j += 4)
   {
-	  output[j] = (unsigned char)(input[i] & 0xff);
-	  output[j+1] = (unsigned char)((input[i] >> 8) & 0xff);
-	  output[j+2] = (unsigned char)((input[i] >> 16) & 0xff);
-	  output[j+3] = (unsigned char)((input[i] >> 24) & 0xff);
+      output[j] = (unsigned char)(input[i] & 0xff);
+      output[j+1] = (unsigned char)((input[i] >> 8) & 0xff);
+      output[j+2] = (unsigned char)((input[i] >> 16) & 0xff);
+      output[j+3] = (unsigned char)((input[i] >> 24) & 0xff);
   }
 }
 
@@ -305,7 +305,7 @@ static void Decode (UINT4 *output, unsigned char *input, unsigned int len)
 
   for (i = 0, j = 0; j < len; i++, j += 4)
   {
-	  output[i] = ((UINT4)input[j]) | (((UINT4)input[j+1]) << 8) | (((UINT4)input[j+2]) << 16) | (((UINT4)input[j+3]) << 24);
+      output[i] = ((UINT4)input[j]) | (((UINT4)input[j+1]) << 8) | (((UINT4)input[j+2]) << 16) | (((UINT4)input[j+3]) << 24);
   }
 }
 
@@ -317,7 +317,7 @@ static void MD5_memcpy (POINTER output, POINTER input, unsigned int len)
 
   for (i = 0; i < len; i++)
   {
-	  output[i] = input[i];
+      output[i] = input[i];
   }
 }
 
@@ -328,7 +328,7 @@ static void MD5_memset (POINTER output, int value, unsigned int len)
 
   for (i = 0; i < len; i++)
   {
-	  ((char *)output)[i] = (char)value;
+      ((char *)output)[i] = (char)value;
   }
 }
 
@@ -346,54 +346,54 @@ static void MD5_memset (POINTER output, int value, unsigned int len)
 /* Prints a message digest in hexadecimal. */
 void MDPrint(unsigned char digest[16])
 {
-	for (unsigned int i = 0; i < 16; i++)
-	{
-		printf ("%02x", digest[i]);
-	}
-	printf ("\n");
+    for (unsigned int i = 0; i < 16; i++)
+    {
+        printf ("%02x", digest[i]);
+    }
+    printf ("\n");
 }
 
-char* MDFile(char* filename)
+char* MDFile(const char* filePath)
 {
-	MD_CTX context;
-	memset(&context, 0, sizeof(context));
+    MD_CTX context;
+    memset(&context, 0, sizeof(context));
 
-	unsigned char digest[16];
-	memset(digest, 0, sizeof(digest));
+    unsigned char digest[16];
+    memset(digest, 0, sizeof(digest));
 
-	FILE* fp = NULL;
-	if ((fp = fopen (filename, "rb")) == NULL)
-	{
-		printf ("%s can't be opened\n", filename);
-		return "";
-	}
-	else
-	{
-		unsigned char buffer[1024] = {0};
-		int len = 0;
+    FILE* fp = NULL;
+    if ((fp = fopen (filePath, "rb")) == NULL)
+    {
+        printf ("%s can't be opened\n", filePath);
+        return "";
+    }
+    else
+    {
+        unsigned char buffer[1024] = {0};
+        int len = 0;
 
-		MDInit (&context);
-		while (len = fread (buffer, 1, 1024, fp))
-		{
-			MDUpdate (&context, buffer, len);
-		}
-		MDFinal (digest, &context);
+        MDInit (&context);
+        while (len = fread (buffer, 1, 1024, fp))
+        {
+            MDUpdate (&context, buffer, len);
+        }
+        MDFinal (digest, &context);
 
-		fclose (fp);
-		fp = NULL;
+        fclose (fp);
+        fp = NULL;
 
-		//printf ("MD5 (%s) = ", filename);
-		//MDPrint (digest);
-	}
+        //printf ("MD5 (%s) = ", filePath);
+        //MDPrint (digest);
+    }
 
-	static char szMD5[33] = {0};
-	char* pBuf = szMD5;
-	char szTemp[3] = {0};
-	for (int i=0; i<16; ++i)
-	{
-		sprintf(szTemp, "%02x", digest[i]);
-		memcpy(pBuf+i*2, szTemp, 2);
-	}
+    static char szMD5[33] = {0};
+    char* pBuf = szMD5;
+    char szTemp[3] = {0};
+    for (int i=0; i<16; ++i)
+    {
+        sprintf(szTemp, "%02x", digest[i]);
+        memcpy(pBuf+i*2, szTemp, 2);
+    }
 
-	return szMD5;
+    return szMD5;
 }
